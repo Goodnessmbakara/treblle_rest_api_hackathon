@@ -167,4 +167,17 @@ SIMPLE_JWT = {
 AUTH_USER_MODEL = "accounts.User"
 
 REST_FRAMEWORK = {
-    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema"}
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_THROTTLE_CLASSES": [
+        "patient_records.throttling.AnonSustainedThrottle",
+        "patient_records.throttling.AnonBurstThrottle",
+        "patient_records.throttling.UserSustainedThrottle",
+        "patient_records.throttling.UserBurstThrottle",
+    ],
+    "DEFAULT_THROTTLE_RATES": {
+        "anon_sustained": "500/day",
+        "anon_burst": "5/minute",
+        "user_sustained": "5000/day",
+        "user_burst": "7/minute",
+    },
+    }
